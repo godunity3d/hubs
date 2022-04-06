@@ -141,28 +141,33 @@ export function HomePage() {
           </Column>
         </Container>
       )}
-      {sortedPublicRooms.length > 0 && (
-        <Container className={styles.roomsContainer}>
-          <h3 className={styles.roomsHeading}>
-            <FormattedMessage id="home-page.public--rooms" defaultMessage="Public Rooms" />
-          </h3>
-          <Column grow padding className={styles.rooms}>
-            <MediaGrid center>
-              {sortedPublicRooms.map(room => {
-                return (
-                  <MediaTile
-                    key={room.id}
-                    entry={room}
-                    processThumbnailUrl={(entry, width, height) =>
-                      scaledThumbnailUrlFor(entry.images.preview.url, width, height)
-                    }
-                  />
-                );
-              })}
-            </MediaGrid>
-          </Column>
-        </Container>
-      )}
+
+      {auth.isSignedIn == true ? (
+        <>
+          {sortedPublicRooms.length > 0 && (
+            <Container className={styles.roomsContainer}>
+              <h3 className={styles.roomsHeading}>
+                <FormattedMessage id="home-page.public--rooms" defaultMessage="Public Rooms" />
+              </h3>
+              <Column grow padding className={styles.rooms}>
+                <MediaGrid center>
+                  {sortedPublicRooms.map(room => {
+                    return (
+                      <MediaTile
+                        key={room.id}
+                        entry={room}
+                        processThumbnailUrl={(entry, width, height) =>
+                          scaledThumbnailUrlFor(entry.images.preview.url, width, height)
+                        }
+                      />
+                    );
+                  })}
+                </MediaGrid>
+              </Column>
+            </Container>
+          )}
+        </>
+      ) : null}
       {sortedFavoriteRooms.length > 0 && (
         <Container className={styles.roomsContainer}>
           <h3 className={styles.roomsHeading}>
